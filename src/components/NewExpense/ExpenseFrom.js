@@ -10,15 +10,25 @@ const ExpenseForm = () => {
   });
 
   const titleChangeHandler = (event) => {
-    setUserInput({ ...userInput, enteredTitle: event.target.value });
+    // ❌ BAD PRACTICE because setState doesn't gaurantee if userInput is the current state
+    // setUserInput({ ...userInput, enteredTitle: event.target.value });
+
+    // ✔️ GOOD PRACTICE ensure that we're working on the latest state of the snapshot
+    setUserInput((prevState) => {
+      return { ...prevState, enteredTitle: event.target.value };
+    });
   };
 
   const amoutChangeHandler = (event) => {
-    setUserInput({ ...userInput, enteredAmount: event.target.value });
+    setUserInput((prevState) => {
+      return { ...prevState, enteredAmount: event.target.value };
+    });
   };
 
   const dateChangeHandler = (event) => {
-    setUserInput({ ...userInput, enteredDate: event.target.value });
+    setUserInput((prevState) => {
+      return { ...prevState, enteredDate: event.target.value };
+    });
   };
 
   return (
